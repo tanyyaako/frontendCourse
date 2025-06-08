@@ -1,0 +1,52 @@
+.containerCreate{
+    display: flex;
+    flex-direction:column;
+    margin:10px;
+    align-items:center;
+    border: solid 3px #b8b0b0;
+    height: fit-content;
+    box-sizing: border-box;
+}
+.createText{
+    width:100%;
+    color: #7c7575;
+}
+.form{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    gap: 15px;
+    padding:20px;
+    box-sizing: border-box;
+}
+.form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  font-weight: bold;
+  color: #7c7575;
+  text-align: left;
+  
+}
+.form input,
+.form textarea {
+  margin-top: 5px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%; 
+  box-sizing: border-box;
+}
+.buttonCreate{
+    background-color: #7c7575;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    width:50%;
+
+}

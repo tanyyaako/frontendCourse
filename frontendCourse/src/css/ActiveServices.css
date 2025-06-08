@@ -1,0 +1,119 @@
+.container{
+    display: flex;
+    flex-direction:column;
+    margin:10px;
+    align-items:center;
+    width:60%;
+    border: solid 3px #b8b0b0;
+    height: fit-content;
+}
+.line{
+    width:90%;
+    height:2px;
+    background-color: #b8b0b0;
+    margin-top: 10px;
+}
+.services{
+    width:100%;
+    color: #7c7575;
+}
+.list{
+    list-style-type: none;
+    padding-inline-start: 0px;
+    width:80%;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 15px;
+}
+.item{
+    width: calc(33.33% - 10px);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+    gap:10px;
+    padding:10px;
+    border-bottom:1px solid #b8b0b0; 
+    flex-direction: column;
+    box-sizing: border-box;
+}
+.info{
+    color: #7c7575;
+    width:80%;
+}
+.buttons{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-top: auto;
+}
+
+.deleteButton {
+  background-color: #e57373;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.deleteButton:hover {
+  background-color: #d32f2f;
+}
+
+.buttonArchive {
+  background-color: #dfd3d3;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.buttonArchive:hover {
+  background-color: #7c7575;
+}
+
+.modalDelete{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 70;
+}
+.modalContent {
+  background-color: #fff;
+  padding: 20px 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.modalButtonsDelete {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.modalButtonsDelete button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modalButtonsDelete button:first-child {
+  background-color: #e53935;
+  color: white;
+}
+
+.modalButtonsDelete button:last-child {
+  background-color: #90a4ae;
+  color: white;
+}
