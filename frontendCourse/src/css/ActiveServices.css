@@ -7,6 +7,26 @@
     border: solid 3px #b8b0b0;
     height: fit-content;
 }
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+.createButton{
+    display: none;
+    background-color: #7c7575;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    margin: 10px auto;
+    cursor: pointer;
+    font-weight: bold;
+}
 .line{
     width:90%;
     height:2px;
@@ -116,4 +136,65 @@
 .modalButtonsDelete button:last-child {
   background-color: #90a4ae;
   color: white;
+}
+
+.createButtonMobile {
+      display:none;
+}
+
+@media (max-width: 1024px) {
+    .createButton {
+          display: block;
+    }
+    .container {
+        width: 100%;
+    }
+    
+    .item {
+        width: calc(50% - 10px);
+    }
+    .createButtonMobile {
+      display:none;
+    }
+}
+@media (max-width: 768px) {
+  .container {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .headerContainer {
+          flex-direction: column;
+          gap: 10px;
+
+    }
+    .services {
+        text-align: center;
+        width: 100%;
+    }
+    .createButton {
+        display: none;
+    }
+    
+    .createButtonMobile {
+        display: block;
+        background-color: #7c7575;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .item {
+        width: 100%;
+    }
+    
+    .rightContainer {
+        flex-direction: column;
+    }
+    
 }

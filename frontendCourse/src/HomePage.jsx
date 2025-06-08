@@ -3,11 +3,12 @@ import "./css/NoActiveServices.css"
 import "./css/CreateComponent.css"
 import "./css/ActiveServices.css"
 
-export default function HomePage(){
+export default function HomePage() {
     const [activeServices, setActiveServices] = useState([]);
     const [noActiveServices, setNoActiveServices] = useState([]); 
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [showModalArchive, setShowModalArchive] = useState(false);
+    const [showModalCreate, setShowModalCreate] = useState(false);
     const [selectedServiceId, setSelectedServiceId] = useState(null);
 
     const confirmDelete = (id) => {
@@ -46,7 +47,7 @@ export default function HomePage(){
         fetch('/service/active')
             .then(response => {
                 if (!response.ok) {
-                throw new Error('Ошибка при загрузке данных');
+                    throw new Error('Ошибка при загрузке данных');
                 }
                 return response.json();
             })
@@ -54,45 +55,43 @@ export default function HomePage(){
             .catch(error => console.error(error));
     }, []);
 
-    const handleDelete= async (id) => {
-        try{
-            const response = await fetch (`/service/${id}`, {
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`/service/${id}`, {
                 method: 'DELETE',
             })
-            if(response.ok){
+            if (response.ok) {
                 console.log('Удалено успешно');
                 setActiveServices((prevServices) => prevServices.filter(service => service.id !== id));
-            }
-                
-            else {
+            } else {
                 console.error('Ошибка при удалении');
-            }   
-        }catch (error){
-            console.error('Сервер не отвечает',error);
+            }
+        } catch (error) {
+            console.error('Сервер не отвечает', error);
         }
     };
-    const handleArchive= async (id) => {
-        try{
-            const response = await fetch (`/service/${id}/active`, {
+
+    const handleArchive = async (id) => {
+        try {
+            const response = await fetch(`/service/${id}/active`, {
                 method: 'PATCH',
             })
-            if(response.ok){
+            if (response.ok) {
                 console.log('Архивировано успешно');
                 setActiveServices(prev => prev.filter(service => service.id !== id));
                 const serviceToMove = activeServices.find(service => service.id === id);
                 if (serviceToMove) {
                     setNoActiveServices(prev => [...prev, serviceToMove]);
                 }
-            }
-                
-            else {
+            } else {
                 console.error('Ошибка при архивировании');
-            }   
-        }catch (error){
-            console.error('Сервер не отвечает',error);
+            }
+        } catch (error) {
+            console.error('Сервер не отвечает', error);
         }
     };
-        const [formData, setFormData] = useState({
+
+    const [formData, setFormData] = useState({
         name: '',
         description: '',
         price: 0,
@@ -101,18 +100,18 @@ export default function HomePage(){
     });
 
     const handleChange = (e) => {
-        setFormData({...formData, [e.target.name]: e.target.value});
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         try {
             const response = await fetch('/service/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData) 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
             });
 
             if (response.ok) {
@@ -120,23 +119,27 @@ export default function HomePage(){
                 const result = await response.json();
                 setActiveServices(prev => [...prev, result]);
                 console.log('Ответ от сервера:', result);
-                setFormData({name: '',
-                            description: '',
-                            price: 0,
-                            duration: 0,
-                            category: '' });
+                setFormData({
+                    name: '',
+                    description: '',
+                    price: 0,
+                    duration: 0,
+                    category: ''
+                });
+                setShowModalCreate(false);
             } else {
-            console.error('Ошибка при отправке данных');
+                console.error('Ошибка при отправке данных');
             }
         } catch (error) {
             console.error('Ошибка соединения с сервером:', error);
         }
-        };
+    };
+
     useEffect(() => {
         fetch('/service/inactive')
             .then(response => {
                 if (!response.ok) {
-                throw new Error('Ошибка при загрузке данных');
+                    throw new Error('Ошибка при загрузке данных');
                 }
                 return response.json();
             })
@@ -144,36 +147,102 @@ export default function HomePage(){
             .catch(error => console.error(error));
     }, []);
 
-    const handleUnArchive= async (id) => {
-        try{
-            const response = await fetch (`/service/${id}/active`, {
+    const handleUnArchive = async (id) => {
+        try {
+            const response = await fetch(`/service/${id}/active`, {
                 method: 'PATCH',
             })
-            if(response.ok){
+            if (response.ok) {
                 console.log('Разархивировано успешно');
                 setNoActiveServices(prev => prev.filter(service => service.id !== id));
                 const serviceToMove = noActiveServices.find(service => service.id === id);
                 if (serviceToMove) {
                     setActiveServices(prev => [...prev, serviceToMove]);
                 }
-            }
-             
-            else {
+            } else {
                 console.error('Ошибка при архивировании');
-            }   
-        }catch (error){
-            console.error('Сервер не отвечает',error);
+            }
+        } catch (error) {
+            console.error('Сервер не отвечает', error);
         }
     };
 
-    return(
+    return (
         <div className='mainContoiner'>
             <div className="container">
-                <h2 className="services">Услуги</h2>
+                <div className="headerContainer">
+                    <h2 className="services">Услуги</h2>
+                    <button className="createButton" onClick={() => setShowModalCreate(true)}>
+                        Создать услугу
+                    </button>
+                    <button className="createButtonMobile" onClick={() => setShowModalCreate(true)}>
+                        Создать услугу
+                    </button>
+                </div>
+                {showModalCreate && (
+                    <div className="modalCreate">
+                        <div className="modalCreateContent">
+                            <h2 className="createText">Создать услугу</h2>
+                            <div className="line"></div>
+                            <form className="form" onSubmit={handleSubmit}>
+                                <label>
+                                    Название
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                    />
+                                </label>
+                                <label>
+                                    Цена
+                                    <input
+                                        type="number"
+                                        name="price"
+                                        value={formData.price}
+                                        onChange={handleChange}
+                                    />
+                                </label>
+                                <label>
+                                    Продолжительность (мин)
+                                    <input
+                                        type="number"
+                                        name="duration"
+                                        value={formData.duration}
+                                        onChange={handleChange}
+                                    />
+                                </label>
+                                <label>
+                                    Категория
+                                    <input
+                                        type="text"
+                                        name="category"
+                                        value={formData.category}
+                                        onChange={handleChange}
+                                    />
+                                </label>
+                                <label>
+                                    Описание
+                                    <textarea
+                                        name="description"
+                                        value={formData.description}
+                                        onChange={handleChange}
+                                    />
+                                </label>
+                                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                                    <button className="buttonCreate" type="submit">Сохранить</button>
+                                    <button className="deleteButton" type="button" onClick={() => setShowModalCreate(false)}>
+                                        Отмена
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
                 <div className="line"></div>
                 <ul className="list">
-                    {activeServices.map((service)=>(
-                        <li className="item" key ={service.id}>
+                    {activeServices.map((service) => (
+                        <li className="item" key={service.id}>
                             <div className="info">
                                 <div><strong>{service.name}</strong> - {service.price}р.</div>
                                 <p>{service.description}</p>
@@ -182,13 +251,12 @@ export default function HomePage(){
                             </div>
                             <div className="buttons">
                                 <button className="buttonArchive" onClick={() => confirmArchive(service.id)}>Архивировать</button>
-                                <button className="deleteButton"onClick={() => confirmDelete(service.id)}>Удалить</button>
+                                <button className="deleteButton" onClick={() => confirmDelete(service.id)}>Удалить</button>
                             </div>
-                            
                         </li>
                     ))}
                 </ul>
-                {showModalDelete &&(
+                {showModalDelete && (
                     <div className="modalDelete">
                         <div className="modalContent">
                             <p>Вы действительно хотите удалить эту услугу?</p>
@@ -197,10 +265,9 @@ export default function HomePage(){
                                 <button onClick={cancelDelete}>Отмена</button>
                             </div>
                         </div>
-                        
                     </div>
                 )}
-                {showModalArchive &&(
+                {showModalArchive && (
                     <div className="modalDelete">
                         <div className="modalContent">
                             <p>Вы действительно хотите архивировать эту услугу?</p>
@@ -209,87 +276,83 @@ export default function HomePage(){
                                 <button onClick={cancelArchive}>Отмена</button>
                             </div>
                         </div>
-                        
                     </div>
                 )}
-
             </div>
-                  <div className='rightContainer'>
-                    <div className="containerCreate">
-                        <h2 className="createText">Создать услугу</h2>
-                        <div className="line"></div>
-                        <form className="form"onSubmit={handleSubmit}> 
-                            <label>
-                                Название
-                                <input
+            <div className='rightContainer'>
+                <div className="containerCreate">
+                    <h2 className="createText">Создать услугу</h2>
+                    <div className="line"></div>
+                    <form className="form" onSubmit={handleSubmit}>
+                        <label>
+                            Название
+                            <input
                                 type="text"
                                 name="name"
                                 value={formData.name}
                                 onChange={handleChange}
-                                />
-                            </label>
-                            <label>
-                                Цена
-                                <input
+                            />
+                        </label>
+                        <label>
+                            Цена
+                            <input
                                 type="number"
                                 name="price"
                                 value={formData.price}
                                 onChange={handleChange}
-                                />
-                            </label>
-                            <label>
-                                Продолжительность (мин)
-                                <input
+                            />
+                        </label>
+                        <label>
+                            Продолжительность (мин)
+                            <input
                                 type="number"
                                 name="duration"
                                 value={formData.duration}
                                 onChange={handleChange}
-                                />
-                            </label>
-                            <label>
-                                Категория
-                                <input
+                            />
+                        </label>
+                        <label>
+                            Категория
+                            <input
                                 type="text"
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                />
-                            </label>
-                            <label>
-                                Описание
-                                <textarea
+                            />
+                        </label>
+                        <label>
+                            Описание
+                            <textarea
                                 name="description"
                                 value={formData.description}
                                 onChange={handleChange}
-                                />
-                            </label>
-                            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <button className="buttonCreate" type="submit">Сохранить</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="containerNoActive">
-                        <h2 className="services">Архивированные услуги</h2>
-                        <div className="line"></div>
-                        <ul className="list">
-                            {noActiveServices.map((service,index)=>(
-                                <li className="item" key ={index}>
-                                    <div className="info">
-                                        <div><strong>{service.name}</strong> - {service.price}р.</div>
-                                        <p>{service.description}</p>
-                                        <p>Продолжительность в минутах: {service.duration}</p>
-                                        <p>Категория услуги: {service.category}</p>
-                                    </div>
-                                    <div className="buttons">
-                                        <button className="archiveButton2" onClick={() => handleUnArchive(service.id)}>Разрхивировать</button>
-                                    </div>
-                                    
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                  </div>
+                            />
+                        </label>
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <button className="buttonCreate" type="submit">Сохранить</button>
+                        </div>
+                    </form>
+                </div>
+                <div className="containerNoActive">
+                    <h2 className="services">Архивированные услуги</h2>
+                    <div className="line"></div>
+                    <ul className="listArchive">
+                        {noActiveServices.map((service, index) => (
+                            <li className="itemArchive" key={index}>
+                                <div className="info">
+                                    <div><strong>{service.name}</strong> - {service.price}р.</div>
+                                    <p>{service.description}</p>
+                                    <p><strong>Продолжительность в минутах:</strong> {service.duration}</p>
+                                    <p><strong>Категория услуги:</strong> {service.category}</p>
+                                </div>
+                                <div className="buttons">
+                                    <button className="archiveButton2" onClick={() => handleUnArchive(service.id)}>Разрхивировать</button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
-        
+        </div>
     )
 }
