@@ -192,6 +192,7 @@ export default function HomePage() {
                                         name="name"
                                         value={formData.name}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </label>
                                 <label>
@@ -201,6 +202,7 @@ export default function HomePage() {
                                         name="price"
                                         value={formData.price}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </label>
                                 <label>
@@ -210,6 +212,7 @@ export default function HomePage() {
                                         name="duration"
                                         value={formData.duration}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </label>
                                 <label>
@@ -219,6 +222,7 @@ export default function HomePage() {
                                         name="category"
                                         value={formData.category}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </label>
                                 <label>
@@ -291,6 +295,7 @@ export default function HomePage() {
                                 name="name"
                                 value={formData.name}
                                 onChange={handleChange}
+                                required
                             />
                         </label>
                         <label>
@@ -300,6 +305,7 @@ export default function HomePage() {
                                 name="price"
                                 value={formData.price}
                                 onChange={handleChange}
+                                required
                             />
                         </label>
                         <label>
@@ -309,6 +315,7 @@ export default function HomePage() {
                                 name="duration"
                                 value={formData.duration}
                                 onChange={handleChange}
+                                required
                             />
                         </label>
                         <label>
@@ -318,6 +325,7 @@ export default function HomePage() {
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
+                                required
                             />
                         </label>
                         <label>
@@ -326,6 +334,7 @@ export default function HomePage() {
                                 name="description"
                                 value={formData.description}
                                 onChange={handleChange}
+
                             />
                         </label>
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
