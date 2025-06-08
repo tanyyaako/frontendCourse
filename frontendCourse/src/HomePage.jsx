@@ -103,7 +103,7 @@ export default function HomePage() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleCreate = async (e) => {
         e.preventDefault();
         try {
             const response = await fetch('/service/create', {
@@ -118,7 +118,6 @@ export default function HomePage() {
                 console.log('Отправлено успешно!');
                 const result = await response.json();
                 setActiveServices(prev => [...prev, result]);
-                console.log('Ответ от сервера:', result);
                 setFormData({
                     name: '',
                     description: '',
@@ -184,7 +183,7 @@ export default function HomePage() {
                         <div className="modalCreateContent">
                             <h2 className="createText">Создать услугу</h2>
                             <div className="line"></div>
-                            <form className="form" onSubmit={handleSubmit}>
+                            <form className="form" onSubmit={handleCreate}>
                                 <label>
                                     Название
                                     <input
@@ -202,6 +201,7 @@ export default function HomePage() {
                                         name="price"
                                         value={formData.price}
                                         onChange={handleChange}
+                                        min="0"
                                         required
                                     />
                                 </label>
@@ -212,6 +212,7 @@ export default function HomePage() {
                                         name="duration"
                                         value={formData.duration}
                                         onChange={handleChange}
+                                        min="0"
                                         required
                                     />
                                 </label>
@@ -287,7 +288,7 @@ export default function HomePage() {
                 <div className="containerCreate">
                     <h2 className="createText">Создать услугу</h2>
                     <div className="line"></div>
-                    <form className="form" onSubmit={handleSubmit}>
+                    <form className="form" onSubmit={handleCreate}>
                         <label>
                             Название
                             <input
@@ -305,6 +306,7 @@ export default function HomePage() {
                                 name="price"
                                 value={formData.price}
                                 onChange={handleChange}
+                                min="0"
                                 required
                             />
                         </label>
@@ -315,6 +317,7 @@ export default function HomePage() {
                                 name="duration"
                                 value={formData.duration}
                                 onChange={handleChange}
+                                min="0"
                                 required
                             />
                         </label>
