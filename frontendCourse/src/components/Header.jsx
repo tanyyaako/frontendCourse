@@ -2,8 +2,8 @@ import '../css/Header.css';
 
 export default function Header() {
   return (
-    <div className="header-container">
-      <p className="header-title">Салон красоты</p>
+    <div className="headerСontainer">
+      <p className="headerTitle">Салон красоты</p>
     </div>
   );
 }

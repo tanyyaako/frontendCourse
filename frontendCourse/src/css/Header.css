@@ -1,4 +1,4 @@
-.header-container {
+.headerСontainer {
   display: flex;
   background-color: #dfd3d3;
   align-items: center; 
@@ -8,18 +8,18 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.header-title {
+.headerTitle {
   color: #7c7575;
   font-size: 28px;
   font-weight: bold;
 }
 
 @media (max-width: 768px) {
-  .header-container {
+  .headerСontainer {
     height: 40px;
   }
   
-  .header-title {
+  .headerTitle {
     font-size: 20px;
   }
 }
