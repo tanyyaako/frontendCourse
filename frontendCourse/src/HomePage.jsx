@@ -67,7 +67,7 @@ export default function HomePage() {
                 console.error('Ошибка при удалении');
             }
         } catch (error) {
-            console.error('Сервер не отвечает', error);
+            console.error(error);
         }
     };
 
@@ -87,7 +87,7 @@ export default function HomePage() {
                 console.error('Ошибка при архивировании');
             }
         } catch (error) {
-            console.error('Сервер не отвечает', error);
+            console.error(error);
         }
     };
 
@@ -131,7 +131,7 @@ export default function HomePage() {
                 console.error('Ошибка при отправке данных');
             }
         } catch (error) {
-            console.error('Ошибка соединения с сервером:', error);
+            console.error(error);
         }
     };
 
@@ -163,7 +163,7 @@ export default function HomePage() {
                 console.error('Ошибка при архивировании');
             }
         } catch (error) {
-            console.error('Сервер не отвечает', error);
+            console.error(error);
         }
     };
 
@@ -231,7 +231,7 @@ export default function HomePage() {
                                 </label>
                                 <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
                                     <button className="buttonCreate" type="submit">Сохранить</button>
-                                    <button className="deleteButton" type="button" onClick={() => setShowModalCreate(false)}>
+                                    <button className="deleteButtonArchive" type="button" onClick={() => setShowModalCreate(false)}>
                                         Отмена
                                     </button>
                                 </div>
@@ -246,8 +246,8 @@ export default function HomePage() {
                             <div className="info">
                                 <div><strong>{service.name}</strong> - {service.price}р.</div>
                                 <p>{service.description}</p>
-                                <p>Продолжительность в минутах: {service.duration}</p>
-                                <p>Категория услуги: {service.category}</p>
+                                <p><strong>Продолжительность в минутах:</strong> {service.duration}</p>
+                                <p><strong>Категория услуги:</strong> {service.category}</p>
                             </div>
                             <div className="buttons">
                                 <button className="buttonArchive" onClick={() => confirmArchive(service.id)}>Архивировать</button>
@@ -334,12 +334,12 @@ export default function HomePage() {
                     </form>
                 </div>
                 <div className="containerNoActive">
-                    <h2 className="services">Архивированные услуги</h2>
+                    <h2 className="servicesArchive">Архивированные услуги</h2>
                     <div className="line"></div>
                     <ul className="listArchive">
                         {noActiveServices.map((service, index) => (
                             <li className="itemArchive" key={index}>
-                                <div className="info">
+                                <div className="infoArchive">
                                     <div><strong>{service.name}</strong> - {service.price}р.</div>
                                     <p>{service.description}</p>
                                     <p><strong>Продолжительность в минутах:</strong> {service.duration}</p>

@@ -11,9 +11,10 @@
     background-color: #b8b0b0;
     margin-top: 10px;
 }
-.services{
+.servicesArchive{
     width:100%;
     color: #7c7575;
+    overflow-wrap: break-word;
 }
 .listArchive{
     list-style-type: none;
@@ -34,14 +35,13 @@
     box-sizing: border-box;
 }
 
-.info{
+.infoArchive{
     color: #7c7575;
     width:100%;
 }
-.info > div:first-child {
+.infoArchive> div:first-child{
     font-size: 18px; 
     margin-bottom: 8px;
-    font-weight: bold; 
 }
 .buttons{
     display:flex;
@@ -67,18 +67,33 @@
 @media (max-width: 1024px) {
     .itemArchive {
         width: 100%;
+    }  
+    
+}
+@media (max-width: 768px) {
+    .containerNoActive{
+        width: 100%;
+        box-sizing: border-box;
+        margin:0;
+    }
+    .itemArchive {
+        width: 100%;
+        overflow-wrap: break-word;
+    }
+    .listArchive{
+        padding:0 10px;
+    }
+    .itemArchive p:nth-child(2), 
+    .itemArchive p:nth-child(3) { 
+        display: none;
     }
     
-    @media (max-width: 768px) {
-        .itemArchive p:nth-child(2), 
-        .itemArchive p:nth-child(3) { 
-            display: none;
-        }
-        
-        .buttons {
-            flex-direction: row;
-            justify-content: flex-end;
-            margin-top: 10px;
-        }
+    .buttons {
+        flex-direction: row;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+    .servicesArchive{
+        width:80%;
     }
 }

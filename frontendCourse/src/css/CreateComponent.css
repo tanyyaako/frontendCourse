@@ -48,7 +48,7 @@
     border: none;
     border-radius: 8px;
     width:50%;
-
+    
 }
 .modalCreate {
     position: fixed;
@@ -70,12 +70,31 @@
     width: 80%;
     max-width: 500px;
 }
+.deleteButtonArchive {
+  background-color: #e57373;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  width:50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
 
 
 @media (max-width: 1024px) {
     .containerCreate {
         display: none;
+    }
+    .buttonCreate{
+        font-size:12px;
+        width:100px;
+    }
+    .deleteButtonArchive{
+        font-size:12px;
+        width:100px;
     }
     
     

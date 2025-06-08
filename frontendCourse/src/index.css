@@ -17,15 +17,17 @@ body {
   width:40%;
   display:flex;
   flex-direction:column;
+   box-sizing: border-box;
 }
 @media (max-width: 768px) {
     .rightContainer{
       width:100%;
     }
     .mainContoiner{
-      width:100%;
       flex-direction:column;
       box-sizing: border-box;
-      margin-right:10px;
+      justify-items:center; 
+      align-items:center;
+      margin:0 10px;
     }
 }
